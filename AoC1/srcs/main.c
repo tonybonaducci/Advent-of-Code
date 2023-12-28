@@ -6,7 +6,7 @@
 /*   By: rmenezes <rmenezes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:21:27 by rmenezes          #+#    #+#             */
-/*   Updated: 2023/12/27 22:45:25 by rmenezes         ###   ########.fr       */
+/*   Updated: 2023/12/28 00:24:21 by rmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,24 @@ char *get_digits(char *str)
 
 int	main (void)
 {
-	const char *filename = "cal_doc";
+	const char *filename = "cal_doc.txt";
 	int flags = O_RDONLY;
 	int fd = open(filename, flags);
 	int i = 0;
+	int sum = 0;
 	char *next;
+	char *digits;
 
-	while (i < 25)
+	while (i < 1000)
 	{
 		next = get_next_line(fd);
 		printf("line %d:%s:", i, next);
+		digits = get_digits(next);
+		printf("line %d 's digits: %s \n", i, digits);
+		sum += atoi(digits);
+		printf("current sum : %d\n", sum);
 		free (next);
+		free (digits);
 		i++;
 	}
 	close (fd);
